@@ -37,6 +37,9 @@ model Reserves {
   userId String
   service Services @relation(fields: [serviceId], references: [id])
   serviceId String
+  price Float
+  status String @default("confirmed")
+  date DateTime @default(now())
 }
 
 enum Role {

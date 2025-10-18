@@ -1,9 +1,9 @@
 import express from 'express'
-import { authenticate } from '../middlewares/authenticate.js'
+import { authenticate } from '../middlewares/authenticate'
 export const router = express.Router()
 
 
-import {register, login, getUsers, putUser, deleteUser, getUserByID, getUserByEmail, getUserByNif, putUserPassword, putUserBalance} from '../controllers/usersController.js'
+import {register, login, getUsers, putUser, deleteUser, getUserByID, getUserByEmail, getUserByNif, putUserPassword, putUserBalance} from '../controllers/usersController'
 router.post('/register', register)
 router.post('/login', login)
 router.get('/', getUsers)

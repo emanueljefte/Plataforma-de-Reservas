@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "description": "API Rest de uma Plataforma de Reservas",
-  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch ./server.js"
+    "dev": "tsx watch ./server.ts",
+    "start": "tsx ./server.ts"
   },
   "keywords": [
     "plataforma_reserva_api",
-    "Javascript",
+    "TypeScript",
     "Express",
     "Prisma"
   ],
@@ -24,5 +24,15 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.17.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.8.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
