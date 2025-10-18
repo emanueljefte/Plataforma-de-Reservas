@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import cors from 'cors'
 import express, { Request, Response, NextFunction} from 'express'
 import { router as usersRoute} from './src/routes/users'
 import { router as servicesRoute} from './src/routes/services'
@@ -10,7 +11,7 @@ const app = express()
 const port = process.env.SERVER_PORT || 3000
 
 app.use(express.json())
-
+app.use(cors())
 app.get('/api/v1', (req: Request, res: Response) => {
   res.status(200).send({ msg: 'Raiz do Projecto'})
 })
