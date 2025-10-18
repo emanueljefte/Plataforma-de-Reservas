@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id String @id @default(uuid())
+  name String
+  nif String @unique
+  email String @unique
+  password String
+  user_role Role
+  balance Float @default(0.0)
+  services  Services[] @relation("UserServices")
+  reserve Reserves[]
+}
+
+model Services {
+  id String @id @default(uuid())
+  name String
+  description String
+  price Float
+  provider Users @relation("UserServices", fields: [providerId], references: [id])
+  providerId String
+  reserve Reserves[]
+
+}
+
+model Reserves {
+  id String @id @default(uuid())
+  user Users @relation(fields: [userId], references: [id])
+  userId String
+  service Services @relation(fields: [serviceId], references: [id])
+  serviceId String
+}
+
+enum Role {
+  Client
+  Provider
+}
