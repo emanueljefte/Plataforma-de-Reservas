@@ -6,7 +6,8 @@ import {
   getReserves,
   getReserve,
   putReserve,
-  deleteReserve
+  deleteReserve,
+  getReserveHistory
 } from '../controllers/reservesController'
 
 export const router: express.Router = express.Router()
@@ -14,5 +15,6 @@ export const router: express.Router = express.Router()
 router.post('/', authenticate, authorize(["create"], "Client"), postReserve)
 router.get('/', authenticate, authorize(['read']), getReserves)
 router.get('/:id', authenticate, authorize(['read']), getReserve)
+router.get('/history', authenticate, authorize(['read']), getReserveHistory)
 router.put('/:id', authenticate, authorize(['update'], "Client"), putReserve)
 router.delete('/:id', authenticate, authorize(['delete'], "Client"), deleteReserve)

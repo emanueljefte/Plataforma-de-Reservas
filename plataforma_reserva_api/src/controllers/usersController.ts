@@ -11,7 +11,6 @@ const rolePermissions = {
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, nif, email, password, user_role } = req.body;
-    console.log(req.body);
 
     if (!name || !nif || !email || !password || !user_role)
       return res.status(409).json({ msg: "Informações insuficientes" });
@@ -82,6 +81,7 @@ if (!token) {
       msg: "Usuário autenticado com sucesso",
       token,
       data: {
+        id: check.id,
         name: check.name,
         nif: check.nif,
         email: check.email,
@@ -239,11 +239,16 @@ export const putUserBalance = async (req: Request, res: Response) => {
       return res.status(409).json({ msg: "O Saldo não pode ser negativo" });
     }
 
-    const result = await prisma.users.update({
-      where: { id },
-      data: { balance },
-    });
-    res.status(200).json({ msg: "Saldo Actualizado" });
+    const [result] = await prisma.$transaction([
+          prisma.users.update({
+            where: { id},
+            data: {
+              balance: { increment: balance},
+    },
+    }),
+        ]);
+
+    res.status(200).json({ msg: "Saldo Actualizado", balance: result.balance });
   } catch (error) {
     res.status(500).json({ msg: "Erro no servidor" });
   }

@@ -120,6 +120,8 @@ export const getUserReserves = async (req: Request, res: Response) => {
 export const getReserveHistory = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.sub
+    console.log("userId");
+    
     if (!userId) return res.status(401).json({ msg: "Usuário não autenticado"})
 
     const history = await prisma.reserves.findMany({
