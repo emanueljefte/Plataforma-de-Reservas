@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 interface Service {
@@ -19,7 +19,7 @@ export const ServiceList = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/v1/services/", {
+        const res = await fetch("http://localhost:3000/api/v1/services", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

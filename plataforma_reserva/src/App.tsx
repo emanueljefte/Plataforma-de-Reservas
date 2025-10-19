@@ -10,13 +10,17 @@ import { useAuth } from "./contexts/AuthContext";
 // Tipagem opcional para os componentes se quiser
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ServiceDashboard from "./pages/ServiceDashboard";
-import ClientDashboard from "./pages/ClientDashboard";
-import { TransactionHistory } from "./components/TransactionHistory";
-import { ServiceList } from "./components/ServiceList";
-import { ProfileEditor } from "./components/ProfileEditor";
-import { BalanceTransfer } from "./components/BalanceTransfer";
+import ClientDashboard from "./pages/client/ClientDashboard";
+import { TransactionHistory } from "./pages/client/components/TransactionHistory";
+import { ServiceList } from "./pages/client/components/ServiceList";
+import { ProfileEditor } from "./pages/client/components/ProfileEditor";
+import { BalanceTransfer } from "./pages/client/components/BalanceTransfer";
 import SelectRole from "./pages/SelectRole";
+import ProviderDashboard from "./pages/provider/ProviderDashboard";
+import { Home } from "./pages/provider/components/Home";
+import { ServicesList } from "./pages/provider/components/ServicesList";
+import { ServiceForm } from "./pages/provider/components/ServiceForm";
+import { ServiceEdit } from "./pages/provider/components/ServiceEdit";
 
 function App() {
   const { isAuthenticated, userType } = useAuth();
@@ -37,36 +41,44 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/signup"
-          element={
-              <SelectRole />
-          }
-        />
-        <Route
-          path="/register"
-          element={
-              <Register />
-          }
-        />
+        <Route path="/signup" element={<SelectRole />} />
+        <Route path="/register" element={<Register />} />
 
-        {/* SERVIÇOS */}
-        {/* <Route path="/service" element={isAuthenticated && userType === "Provider" ? ( <ServiceDashboard />) : ( <Navigate to="/login" /> )} /> */}
-        <Route path="/service" element={ <ServiceDashboard />} />
-
-        <Route path="/dashboardClient" element={isAuthenticated && userType === "Client" ? (<ClientDashboard />): (<Navigate to={'/'} />)}>
+        <Route
+          path="/dashboardClient"
+          element={
+            isAuthenticated && userType === "Client" ? (
+              <ClientDashboard />
+            ) : (
+              <Navigate to={"/"} />
+            )
+          }
+        >
           <Route index element={<ServiceList />} />
           <Route path="transaction" element={<TransactionHistory />} />
           <Route path="profile" element={<ProfileEditor />} />
           <Route path="transfer" element={<BalanceTransfer />} />
-
         </Route>
 
-        
+        <Route
+          path="/dashboardProvider"
+          element={
+            isAuthenticated && userType === "Provider" ? (
+              <ProviderDashboard />
+            ) : (
+              <Navigate to={"/"} />
+            )
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="services" element={<ServicesList />} />
+          <Route path="services/new" element={<ServiceForm />} />
+          <Route path="services/edit/:id" element={<ServiceEdit />} />
+          <Route path="profile" element={<ProfileEditor />} />
+        </Route>
       </Routes>
     </Router>
   );
-
 }
 
 export default App;

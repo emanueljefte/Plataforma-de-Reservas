@@ -61,12 +61,12 @@ function useLogin() {
 } else if (res.status === 401) {
         // message.error(data.msg);
         console.log(data);
-        
+        setError(data.msg)
     } else if (res.status === 404) {
         console.log(data);
         setError(data.msg);
     } else {
-    console.log("Falha no Login");
+    alert("Falha no Login");
         // message.error("Falha no Login");
 }
 } catch (error) {

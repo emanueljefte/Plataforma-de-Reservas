@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { loginUser, loading, error} = useLogin();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,9 +68,13 @@ function Login() {
               />
             </div>
 
+             {error && (
+                <p className="text-red-600 text-sm">{error}</p>
+              )}
+
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer"
 >
               Entrar
             </button>

@@ -1,8 +1,8 @@
-import { useAuth} from '../contexts/AuthContext';
+import { useAuth} from '../../../contexts/AuthContext';
 import { useNavigate} from 'react-router-dom';
 import { LogoutOutlined} from '@ant-design/icons';
 
-export const HeaderClientDashboard = () => {
+export const Header = () => {
   const { userData, logout} = useAuth();
   const navigate = useNavigate();
 

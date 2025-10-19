@@ -39,6 +39,19 @@ export const getServices = async (req: Request, res: Response) => {
   }
 };
 
+export const getUserServices = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const data = await prisma.services.findMany({
+      where: {providerId: id}
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ msg: "Erro no servidor" });
+  }
+};
+
 export const getService = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {

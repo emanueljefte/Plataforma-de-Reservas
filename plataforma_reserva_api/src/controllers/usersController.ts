@@ -162,6 +162,7 @@ export const putUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { name, nif, email, user_role } = req.body;
     const { sub} = req.user!
+    
     if (sub !== id) {
       return res
         .status(403)
@@ -199,7 +200,9 @@ export const putUser = async (req: Request, res: Response) => {
 export const putUserPassword = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { password } = req.body;
+    const { oldPassword, password } = req.body;
+    console.log(req.body);
+    
 
     const { sub} = req.user!
     if (sub !== id) {
@@ -207,9 +210,22 @@ export const putUserPassword = async (req: Request, res: Response) => {
         .status(403)
         .json({ msg: "Você não tem permissão para modificar este perfil" });
     }
-    if (!password) {
+    if (!password || !oldPassword) {
       return res.status(409).json({ msg: "Informações insuficientes" });
     }
+
+    const user = await prisma.users.findUnique({
+      where: {id}
+    })
+
+    const responseOldPassword = await bcrypt.compare(oldPassword, user!.password)
+    if (!responseOldPassword) {
+      return res.status(409).json({msg: "Senha Actual não conscide"})
+    }
+    if (oldPassword === password) {
+      return res.status(409).json({msg: "Introduza uma Senha diferente da actual"})
+    }
+
     const hashPassword = await bcrypt.hash(password, 10);
     const result = await prisma.users.update({
       where: { id },

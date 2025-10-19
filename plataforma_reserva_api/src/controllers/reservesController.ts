@@ -109,6 +109,9 @@ export const getUserReserves = async (req: Request, res: Response) => {
     const reserves = await prisma.reserves.findMany({
       where: { userId },
       include: { service: true },
+      orderBy: {
+        date: 'desc'
+}
     });
 
     res.status(200).json(reserves);
@@ -116,30 +119,6 @@ export const getUserReserves = async (req: Request, res: Response) => {
     res.status(500).json({ msg: "Erro no servidor" });
   }
 };
-
-export const getReserveHistory = async (req: Request, res: Response) => {
-  try {
-    const userId = req.user?.sub
-    console.log("userId");
-    
-    if (!userId) return res.status(401).json({ msg: "Usuário não autenticado"})
-
-    const history = await prisma.reserves.findMany({
-      where: { userId},
-      include: {
-        service: true
-},
-      orderBy: {
-        date: 'desc'
-}
-})
-
-    res.status(200).json(history)
-} catch (error) {
-    console.error("Erro ao buscar histórico:", error)
-    res.status(500).json({ msg: "Erro no servidor"})
-}
-}
 
 export const putReserve = async (req: Request, res: Response) => {
   try {

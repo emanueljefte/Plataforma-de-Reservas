@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { HeaderClientDashboard } from "../components/HeaderClientDashboard";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "./components/Sidebar";
+import { Header } from "./components/Header";
 
-export const ClientDashboard = () => {
+export const ProviderDashboard = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Header */}
-      <HeaderClientDashboard />
+      <Header />
 
       {/* Body */}
       <div className="flex flex-1">
@@ -22,4 +22,4 @@ export const ClientDashboard = () => {
   );
 };
 
-export default ClientDashboard;
+export default ProviderDashboard;

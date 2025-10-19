@@ -12,6 +12,6 @@ router.get('/by-id/:id', authenticate, getUserByID)
 router.get('/by-nif/:nif', authenticate, getUserByNif)
 router.put('/:id', authenticate, putUser)
 router.put('/transaction/:id', authenticate, putUserBalance)
-router.put('/resetPassword/:id', authenticate, putUserPassword)
+router.put('/reset-password/:id', authenticate, putUserPassword)
 router.delete('/:id', authenticate, deleteUser)
 
