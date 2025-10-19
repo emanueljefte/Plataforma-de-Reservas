@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 
+interface Service {
+  id: string;
+  providerId: string;
+  name: string;
+  description: string;
+  price: number;
+}
+
+interface Reserve {
+  id: string;
+  service: Service;
+  status: string;
+  price: number;
+  date: string;
+}
+
 export const Home: React.FC = () => {
   const { token, userData, logout } = useAuth();
   const [numberServices, setNumberServices] = useState<number>(0)
@@ -30,7 +46,8 @@ export const Home: React.FC = () => {
     }
 
     if (res.ok) {
-      setNumberServices(data.lenght)
+
+      setNumberServices(data.length)
     } else {
       alert(data.msg || "Erro ao registrar");
     }
@@ -42,7 +59,7 @@ export const Home: React.FC = () => {
 }
   async function getUserReserves () {
     try {
-    const res = await fetch("http://localhost:3000/api/v1/reserves/history", {
+    const res = await fetch("http://localhost:3000/api/v1/reserves/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -51,9 +68,14 @@ export const Home: React.FC = () => {
     });
 
     const data = await res.json();
-
+    
     if (res.ok) {
-      setNumberReserves(data.lenght)
+      const dataRes: Reserve[] = data;
+      const userService = dataRes.filter((d) => {
+        return d.service.providerId === userData?.id
+      })
+      
+      setNumberReserves(userService.length)
     } else {
       alert(data.msg || "Erro ao registrar");
     }

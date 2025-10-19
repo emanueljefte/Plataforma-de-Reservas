@@ -63,7 +63,7 @@ export const getReserves = async (req: Request, res: Response) => {
     const { sub } = req.user!;
 
     const data = await prisma.reserves.findMany({
-      where: { userId: sub },
+      include: {service: true}
     });
 
     res.status(200).json(data);
@@ -108,7 +108,12 @@ export const getUserReserves = async (req: Request, res: Response) => {
 
     const reserves = await prisma.reserves.findMany({
       where: { userId },
-      include: { service: true },
+      include: { service: true, user: {
+      select: {
+        id: true,
+        name: true,
+}
+} },
       orderBy: {
         date: 'desc'
 }

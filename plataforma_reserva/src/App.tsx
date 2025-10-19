@@ -21,6 +21,8 @@ import { Home } from "./pages/provider/components/Home";
 import { ServicesList } from "./pages/provider/components/ServicesList";
 import { ServiceForm } from "./pages/provider/components/ServiceForm";
 import { ServiceEdit } from "./pages/provider/components/ServiceEdit";
+import { ProfileProviderEditor } from "./pages/provider/components/ProfileProviderEditor";
+import { HomeClient } from "./pages/client/components/HomeClient";
 
 function App() {
   const { isAuthenticated, userType } = useAuth();
@@ -54,7 +56,8 @@ function App() {
             )
           }
         >
-          <Route index element={<ServiceList />} />
+          <Route index element={<HomeClient />} />
+          <Route path="services" element={<ServiceList />} />
           <Route path="transaction" element={<TransactionHistory />} />
           <Route path="profile" element={<ProfileEditor />} />
           <Route path="transfer" element={<BalanceTransfer />} />
@@ -74,7 +77,7 @@ function App() {
           <Route path="services" element={<ServicesList />} />
           <Route path="services/new" element={<ServiceForm />} />
           <Route path="services/edit/:id" element={<ServiceEdit />} />
-          <Route path="profile" element={<ProfileEditor />} />
+          <Route path="profile" element={<ProfileProviderEditor />} />
         </Route>
       </Routes>
     </Router>

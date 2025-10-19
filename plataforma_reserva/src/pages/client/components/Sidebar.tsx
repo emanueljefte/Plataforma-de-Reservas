@@ -4,13 +4,15 @@ import {
   ProfileOutlined,
   DollarOutlined,
   HistoryOutlined,
+  ContactsFilled,
 } from '@ant-design/icons';
 
 const Sidebar = () => {
   const location = useLocation();
 
   const navItems = [
-    { label: 'Serviços', path: '/dashboardClient', icon: <HomeOutlined />},
+    { label: 'Home', path: '/dashboardClient', icon: <HomeOutlined />},
+    { label: 'Serviços', path: '/dashboardClient/services', icon: <ContactsFilled />},
     { label: 'Transações', path: '/dashboardClient/transaction', icon: <HistoryOutlined />},
     { label: 'Editar Perfil', path: '/dashboardClient/profile', icon: <ProfileOutlined />},
     { label: 'Depositar Saldo', path: '/dashboardClient/transfer', icon: <DollarOutlined />},

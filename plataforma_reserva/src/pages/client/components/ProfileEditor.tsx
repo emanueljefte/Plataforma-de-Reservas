@@ -71,7 +71,7 @@ export const ProfileEditor = () => {
         alert(data.msg);
         setVerify(true);
       } else {
-        alert(data.msg || "Erro ao registrar");
+        setErrors(data.msg || "Erro ao registrar, tente novamente");
       }
     } catch (error) {
       console.error("Erro no registro:", error);

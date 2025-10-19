@@ -30,7 +30,8 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ service, isEditing }) 
       price: parseFloat(form.price),
       providerId: userData!.id,
     };
-
+    console.log(payload);
+    
     const method = isEditing ? "PUT" : "POST";
     const url = isEditing
       ? `http://localhost:3000/api/v1/services/${service?.id}`

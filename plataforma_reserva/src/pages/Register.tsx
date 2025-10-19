@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { validateRegister } from "../utils/validator";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -8,6 +9,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<string | null>(null);
   const location = useLocation();
 const userRole = location.state?.user_role || "Client"; 
 
@@ -21,9 +23,17 @@ const userRole = location.state?.user_role || "Client";
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const err = validateRegister(form)
+        
+        if (err !== null) {
+          setErrors(err)
+          return;
+        } 
+        setErrors(null)
+
     const payload = {
       ...form,
-      user_role: userRole, // fixado no frontend
+      user_role: userRole,
     };
 
     try {
@@ -39,7 +49,7 @@ const userRole = location.state?.user_role || "Client";
         alert("Conta criada com sucesso!");
         navigate("/login");
       } else {
-        alert(data.msg || "Erro ao registrar");
+        setErrors(data.msg || "Erro ao registrar");
       }
     } catch (error) {
       console.error("Erro no registro:", error);
@@ -96,6 +106,10 @@ const userRole = location.state?.user_role || "Client";
           required
           className="w-full border px-4 py-2 rounded"
         />
+
+        {errors && (
+                <p className="text-red-600 text-sm">{errors}</p>
+              )}
 
         <button
           type="submit"

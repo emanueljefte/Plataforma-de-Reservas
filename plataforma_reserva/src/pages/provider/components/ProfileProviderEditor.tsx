@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 import { validateProfile, validatePasswordReset } from "../../../utils/validator";
 
-export const ProfileEditor = () => {
+export const ProfileProviderEditor = () => {
   const { token, userData, userType, logout, updateUserData } = useAuth();
   const [errors, setErrors] = useState<string | null>(null);
   const [verify, setVerify] = useState(false);
@@ -71,7 +71,7 @@ export const ProfileEditor = () => {
         alert(data.msg);
         setVerify(true);
       } else {
-        alert(data.msg || "Erro ao registrar");
+        setErrors(data.msg || "Erro ao registrar, tente novamente");
       }
     } catch (error) {
       console.error("Erro no registro:", error);
