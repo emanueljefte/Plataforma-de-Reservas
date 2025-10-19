@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "plataforma_reerva_app",
-    "slug": "plataforma_reerva_app",
+    "name": "plataforma_reserva_app",
+    "slug": "plataforma_reserva_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "plataformareervaapp",
+    "scheme": "plataformareservaapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
